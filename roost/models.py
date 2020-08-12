@@ -5,13 +5,9 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 # Create your models here.
 
 
-
-
 class Organisation(models.Model):
     name= models.CharField(max_length=50)
     logo = models.ImageField(upload_to="uploaded_images", null=True, blank=True)
-
-
 
 
 class UserManager(BaseUserManager):
@@ -57,6 +53,7 @@ class User(AbstractUser):
     premium = models.BooleanField(default=False)
     created = models.DateField(auto_now=True, blank=True)
     email = models.EmailField(_("email address"), unique=True, null=True)
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     username = None
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
