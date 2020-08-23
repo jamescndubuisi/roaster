@@ -2,6 +2,7 @@ from django.db import models
 from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from picklefield.fields import PickledObjectField
 # Create your models here.
 
 
@@ -53,7 +54,7 @@ class User(AbstractUser):
     premium = models.BooleanField(default=False)
     created = models.DateField(auto_now=True, blank=True)
     email = models.EmailField(_("email address"), unique=True, null=True)
-    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE, null=True)
     username = None
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -82,3 +83,17 @@ class User(AbstractUser):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
 
+class Person(models.Model):
+    batch = models.CharField(max_length=60)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    department = models.CharField(max_length=50)
+    rank = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    phone = models.CharField(max_length=11)
+
+
+class PreSchedule(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, default="No name yet")
+    data = PickledObjectField()
