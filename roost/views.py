@@ -30,7 +30,7 @@ def process(request):
             end = time.time()
             print("Elapsed (after compilation) = %s" % (end - start))
             pre_schedule = PreSchedule(user=request.user, data=datum)
-            # pre_schedule.save()
+            pre_schedule.save()
         else:
             print("An error occurred with this file")
             form = form
@@ -52,15 +52,16 @@ def pre_schedule_view(request,identity):
     datum = PreSchedule.objects.get(user=request.user,pk=identity)
     check = datum.data
     # print(check)
-    data_frame = pandas.DataFrame(check, columns=['name','rank', 'phone number', 'email', 'department'])
+    # data_frame = pandas.DataFrame(check, columns=['name','rank', 'phone number', 'email', 'department'])
+    data_frame = pandas.DataFrame(check)
     content = data_frame.to_html
     print(data_frame)
     return render(request,"dataframe.html",{"content":content,"title":title,"data_frame":data_frame})
     # return HttpResponse('<html>'+str(content)+'</html>')
 
 def pre_schedule_list(request):
-    datum = PreSchedule.objects.filter(user=request.user).values('name')
-    return render(request, "base.html", {"content": datum})
+    datum = PreSchedule.objects.filter(user=request.user).values('name','id')
+    return render(request, "dataframelist.html", {"content": datum})
 
 def register(request):
     message = ""

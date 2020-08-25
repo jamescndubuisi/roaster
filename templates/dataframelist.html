@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+{% block content %}
+    <table class="table table-bordered table-striped">
+    <tr>
+        <th>Schedule name</th>
+         <th>Action</th>
+    </tr>
+
+      {% for data in content %}
+          <tr>
+
+           <td>{{ data.name }}</td>
+        <td><a href="see/{{ data.id  }}"><button href="see/{{ data.id }}" class="btn btn-primary">View</button></a></td>
+          </tr>
+
+    {% endfor %}
+
+
+
+
+    </table>
+
+{% endblock %}
+</body>
+</html>
