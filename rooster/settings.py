@@ -135,9 +135,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_PORT = '465'
 EMAIL_HOST_USER = 'jamescndubuisi@zohomail.com'
-EMAIL_HOST_PASSWORD = 'fK3Nhh44RD59'
+EMAIL_HOST_PASSWORD = None
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Educate <jamescndubuisi@zohomail.com>'
+
+
 LOGIN_URL = 'log_in'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "log_in"
@@ -145,8 +147,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
 # Test mode
-PAYSTACK_PUBLIC_KEY = "pk_test_bcd5df0ff5d086e88c29302cce1b9742733c23d3"
-PAYSTACK_SECRET_KEY = "sk_test_2332bf8719a9af3f8df1315c12b26e2822012cfc"
+PAYSTACK_PUBLIC_KEY = None
+PAYSTACK_SECRET_KEY = None
 PAYSTACK_SUCCESS_URL = "/"
 PAYSTACK_FAILED_URL = "/pay"
 if not DEBUG:

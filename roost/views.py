@@ -3,22 +3,20 @@ from django.contrib.auth import login
 from pandas import read_excel
 import pandas
 from .models import PreSchedule, User
-
 from .helper_functions import file_handler
 from .forms import Login, CreateUser, Upload
-# import numpy as np
 from numba import jit, prange
 import time
 
 # Create your views here.
 def homepage(request):
     title = "Roost"
-    content = "Awesomeness"
+    content = "Welcome"
     return render(request, "base.html", {"title": title, "content": content})
 
 def process(request):
     title = "Roost"
-    content = "Awesomeness"
+    content = "Please upload an excel file"
     form = Upload
     if request.method =="POST":
         print("here")
@@ -51,13 +49,10 @@ def pre_schedule_view(request,identity):
     title = "Preview"
     datum = PreSchedule.objects.get(user=request.user,pk=identity)
     check = datum.data
-    # print(check)
-    # data_frame = pandas.DataFrame(check, columns=['name','rank', 'phone number', 'email', 'department'])
     data_frame = pandas.DataFrame(check)
-    content = data_frame.to_html
     print(data_frame)
-    return render(request,"dataframe.html",{"content":content,"title":title,"data_frame":data_frame})
-    # return HttpResponse('<html>'+str(content)+'</html>')
+    return render(request,"dataframe.html",{"title":title,"data_frame":data_frame})
+
 
 def pre_schedule_list(request):
     datum = PreSchedule.objects.filter(user=request.user).values('name','id')
