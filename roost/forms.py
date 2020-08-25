@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import User, PreSchedule
 
 class Login(forms.Form):
     email = forms.EmailField(required=True)
@@ -10,6 +10,12 @@ class Login(forms.Form):
 class Upload(forms.Form):
     file = forms.FileField()
 
+class EditSchedule(forms.ModelForm):
+    name = forms.CharField(max_length=30)
+
+    class Meta:
+        fields = ['name',]
+        model = PreSchedule
 
 class CreateUser(UserCreationForm):
     email = forms.EmailField(required=True)

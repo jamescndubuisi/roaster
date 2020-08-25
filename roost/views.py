@@ -4,7 +4,7 @@ from pandas import read_excel
 import pandas
 from .models import PreSchedule, User
 from .helper_functions import file_handler
-from .forms import Login, CreateUser, Upload
+from .forms import Login, CreateUser, Upload, EditSchedule
 from numba import jit, prange
 import time
 
@@ -59,8 +59,33 @@ def pre_schedule_view(request,identity):
 
 
 def pre_schedule_list(request):
+    title = "Staff Lists"
     datum = PreSchedule.objects.filter(user=request.user).values('name','id')
-    return render(request, "dataframelist.html", {"content": datum})
+    return render(request, "dataframelist.html", {"content": datum, "title":title})
+
+
+def edit_schedule(request, identity):
+    title = "Edit"
+    content = "Please edit this Schedule"
+
+    form = EditSchedule
+
+    if request.method =="POST":
+        form = form(request.POST)
+        if form.is_valid():
+            pre_schedule = PreSchedule.objects.get(user=request.user, pk=identity)
+            edit_form = EditSchedule(request.POST, instance=pre_schedule)
+            edit_form.save()
+        else:
+            print("An error occurred with this file")
+            form = form
+    return render(request, "upload.html", {"title": title, "content": content, "form": form})
+
+
+
+
+
+
 
 def register(request):
     message = ""

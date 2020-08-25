@@ -11,15 +11,19 @@
     <tr>
         <th>Schedule name</th>
         <th>View</th>
-         <th>Action</th>
+         <th>Generate</th>
+         <th>Edit</th>
+         <th>Delete</th>
     </tr>
 
       {% for data in content %}
           <tr>
 
            <td>{{ data.name }}</td>
-        <td><a href="see/{{ data.id  }}"><button href="see/{{ data.id }}" class="btn btn-primary">View</button></a></td>
-        <td><a href="see/{{ data.id  }}"><button href="see/{{ data.id }}" class="btn btn-primary">Generate Schedule</button></a></td>
+        <td><a href="view-schedules/{{ data.id  }}"><button  class="btn btn-success">View</button></a></td>
+        <td><a href="generate/{{ data.id  }}"><button  class="btn btn-info">Generate Schedule</button></a></td>
+        <td><a href="edit/{{ data.id  }}"><button  class="btn btn-primary">Edit Schedule</button></a></td>
+        <td><a href="delete/{{ data.id  }}"><button  class="btn btn-danger">Delete Schedule</button></a></td>
           </tr>
 
     {% endfor %}
