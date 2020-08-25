@@ -10,6 +10,7 @@
     <table class="table table-bordered table-striped">
     <tr>
         <th>Schedule name</th>
+        <th>View</th>
          <th>Action</th>
     </tr>
 
@@ -18,6 +19,7 @@
 
            <td>{{ data.name }}</td>
         <td><a href="see/{{ data.id  }}"><button href="see/{{ data.id }}" class="btn btn-primary">View</button></a></td>
+        <td><a href="see/{{ data.id  }}"><button href="see/{{ data.id }}" class="btn btn-primary">Generate Schedule</button></a></td>
           </tr>
 
     {% endfor %}

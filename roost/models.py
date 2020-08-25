@@ -97,3 +97,4 @@ class PreSchedule(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, default="No name yet")
     data = PickledObjectField()
+    generated = models.BooleanField(default=False)

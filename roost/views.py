@@ -35,15 +35,19 @@ def process(request):
     return render(request, "upload.html", {"title": title, "content": content, "form":form})
 
 @jit(nopython=True, parallel= True, cache= True, nogil = True)
-def generate(request):
+def generate(request, identity):
     start = time.time()
+    schedule = PreSchedule.objects.get(user=request.user,pk=identity)
+    data_frame = pandas.DataFrame(schedule.data)
+    print(data_frame)
+
     for i in prange(1,3000):
         print(i)
         pass
-    pass
+
     end = time.time()
     print("Elapsed (after compilation) = %s" % (end - start))
-
+    return render(request, "dataframelist.html", {"content": data_frame})
 
 def pre_schedule_view(request,identity):
     title = "Preview"
